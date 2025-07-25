@@ -1,7 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { styles } from '../src/styles/styles';
 
 export default function Index() {
+
+    const [userName, setUserName] = React.useState('')
+
+    const buttonClick = () => {
+        if (userName.length < 1) {
+            alert('Campo de usuário vazio!')
+        }
+    }
+
     return (
         <View style={styles.container}>
 
@@ -14,59 +24,22 @@ export default function Index() {
 
             <View style={styles.tela2}>
 
-                <Text>Username</Text>
-                <TextInput style={styles.inText}/>
+                <View>
+                    <Text>Username</Text>
+                    <TextInput style={styles.inText} onChangeText={setUserName}/>
+                </View>
 
-                <Text>Senha</Text>
-                <TextInput style={styles.inText}/>
+                <View>
+                    <Text>Senha</Text>
+                    <TextInput style={styles.inText}/>
+                </View>
+
+                <TouchableOpacity style={styles.button} onPress={buttonClick}>
+                    <Text style={styles.textButton}>Entrar</Text>
+                </TouchableOpacity>
+
             </View>
 
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
-    tela1: {
-        backgroundColor: '#2567e8',
-        height: '50%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    tela2:{
-        width: '80%',
-        height: 270,
-        borderWidth: 2,
-        borderColor: 'lightgray',
-        borderRadius: 16,
-        position: 'absolute',
-        backgroundColor: '#fff',
-        top: '35%',
-        left: '10%',
-        justifyContent: 'flex-start',
-        paddingLeft: '5%',
-        paddingTop: 40
-    },
-    texto1: {
-        color: 'white',
-        fontSize: 24,
-        fontWeight: 'bold',
-        letterSpacing: 0.5
-    },
-    texto2: {
-        color: '#fff',
-        fontSize: 14,
-        marginTop: 10
-    },
-    inText: {
-        width: '90%',
-        height: 30,
-        borderWidth: 1,
-        borderColor: 'lightgray',
-        borderRadius: 4,
-        marginTop: 6
-    }
-})
