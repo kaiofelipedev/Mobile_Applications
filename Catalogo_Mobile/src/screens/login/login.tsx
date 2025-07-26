@@ -39,8 +39,9 @@ export default function Login() {
                     <Text>Username</Text>
 
                     <TextInput 
-                    style={[styles.inText, !checkName ? styles.fieldEmpty : styles.inText]}
-                    onChangeText={setUserName}/>
+                        style={[styles.inText,!checkName ? styles.fieldEmpty : styles.inText]}
+                        onChangeText={setUserName}
+                    />
 
                     <Text
                         style={[styles.textHidden,
@@ -50,8 +51,12 @@ export default function Login() {
 
                 <View>
                     <Text>Senha</Text>
-                    <TextInput style={[styles.inText, !checkPassword ? styles.fieldEmpty : styles.inText]}
-                    onChangeText={setUserPassword}/>
+
+                    <TextInput
+                        style={[styles.inText, !checkPassword ? styles.fieldEmpty : styles.inText]}
+                        onChangeText={setUserPassword}
+                    />
+
                     <Text
                         style={[styles.textHidden,
                         !checkPassword ? styles.textAlert : styles.textHidden]}>Campo obrigatório!
