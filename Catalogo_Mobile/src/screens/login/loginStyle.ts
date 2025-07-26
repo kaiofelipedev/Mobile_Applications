@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     },
     tela2:{
         width: '80%',
-        height: 270,
+        minHeight: 270,
         borderWidth: 2,
         borderColor: 'lightgray',
         borderRadius: 16,
@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingLeft: '5%',
         paddingTop: 40,
+        paddingBottom: 10,
         boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)',
         flexDirection: 'column',
         gap: 25
@@ -64,5 +65,21 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.5,
         fontSize: 16
+    },
+
+    // Alertas de validação
+    // Campo vazio
+    fieldEmpty: {
+        borderColor: 'red',
+        borderWidth: 2
+    },
+    textHidden: {
+        display: 'none'
+    },
+    textAlert: {
+        color: 'red',
+        fontSize: 13,
+        marginTop: 4,
+        display: 'flex'
     }
 })

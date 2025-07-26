@@ -5,10 +5,21 @@ import { styles } from "./loginStyle"
 export default function Login() {
 
     const [userName, setUserName] = React.useState('')
+    const [checkName, setCheckName] = React.useState(true)
+    const [userPassword, setUserPassword] = React.useState('')
+    const [checkPassword, setCheckPassword] = React.useState(true)
 
     const buttonClick = () => {
         if (userName.length < 1) {
-            alert('Campo de usuário vazio!')
+            setCheckName(false)
+        } else {
+            setCheckName(true)
+        }
+
+        if (userPassword.length < 1) {
+            setCheckPassword(false)
+        } else {
+            setCheckPassword(true)
         }
     }
 
@@ -26,12 +37,25 @@ export default function Login() {
 
                 <View>
                     <Text>Username</Text>
-                    <TextInput style={styles.inText} onChangeText={setUserName}/>
+
+                    <TextInput 
+                    style={[styles.inText, !checkName ? styles.fieldEmpty : styles.inText]}
+                    onChangeText={setUserName}/>
+
+                    <Text
+                        style={[styles.textHidden,
+                        !checkName ? styles.textAlert : styles.textHidden]}>Campo obrigatório!
+                    </Text>
                 </View>
 
                 <View>
                     <Text>Senha</Text>
-                    <TextInput style={styles.inText}/>
+                    <TextInput style={[styles.inText, !checkPassword ? styles.fieldEmpty : styles.inText]}
+                    onChangeText={setUserPassword}/>
+                    <Text
+                        style={[styles.textHidden,
+                        !checkPassword ? styles.textAlert : styles.textHidden]}>Campo obrigatório!
+                    </Text>
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={buttonClick}>
