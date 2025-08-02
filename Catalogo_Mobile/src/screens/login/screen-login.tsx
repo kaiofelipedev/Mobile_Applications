@@ -10,17 +10,8 @@ export default function Login() {
     const [checkPassword, setCheckPassword] = React.useState(true)
 
     const buttonClick = () => {
-        if (userName.length < 1) {
-            setCheckName(false)
-        } else {
-            setCheckName(true)
-        }
-
-        if (userPassword.length < 1) {
-            setCheckPassword(false)
-        } else {
-            setCheckPassword(true)
-        }
+        setCheckName(userName.length < 1 ? false:true)
+        setCheckPassword(userPassword.length < 1 ? false:true)
     }
 
     return (
@@ -63,8 +54,13 @@ export default function Login() {
                     </Text>
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={buttonClick}>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={buttonClick}
+                >
+
                     <Text style={styles.textButton}>Entrar</Text>
+
                 </TouchableOpacity>
 
             </View>
