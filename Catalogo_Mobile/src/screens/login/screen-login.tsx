@@ -1,17 +1,39 @@
-import React from "react"
+import React, { use, useState } from "react"
 import { Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from "./loginStyle"
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Login() {
 
-    const [userName, setUserName] = React.useState('')
-    const [checkName, setCheckName] = React.useState(true)
-    const [userPassword, setUserPassword] = React.useState('')
-    const [checkPassword, setCheckPassword] = React.useState(true)
+    // Dados de login
+    const user = 'admin'
+    const senha = '123'
 
+    // Armazenar dados dos campos
+    const [campoNome, setCampoNome] = useState('')
+    const [campoSenha, setCampoSenha] = useState('')
+    const [validaNome, setValidaNome] = useState(true)
+    const [validaSenha, setValidaSenha] = useState(true)
+    const [validaLogin, setValidaLogin] = useState(true)
+
+    const validaCampos = () => {
+        const nomeValido = campoNome.length > 0
+        const senhaValida = campoSenha.length > 0
+
+        setValidaNome(nomeValido)
+        setValidaSenha(senhaValida)
+        
+        return nomeValido && senhaValida
+    }
+    
     const buttonClick = () => {
-        setCheckName(userName.length < 1 ? false:true)
-        setCheckPassword(userPassword.length < 1 ? false:true)
+
+        if(validaCampos()){
+            const checkLogin = campoNome === user && campoSenha === senha
+            setValidaLogin(checkLogin)
+        } else {
+            setValidaLogin(true)
+        }
     }
 
     return (
@@ -26,34 +48,42 @@ export default function Login() {
 
             <View style={styles.tela2}>
 
+                {/* alerta de login ou senha incorreto! */}
+                <Text style={[styles.textHidden, validaLogin ? styles.textHidden:styles.textAlert]}>Username ou senha iválidos!</Text>
+
+                {/* CAMPO DE NOME */}
                 <View>
                     <Text>Username</Text>
 
                     <TextInput 
-                        style={[styles.inText,!checkName ? styles.fieldEmpty : styles.inText]}
-                        onChangeText={setUserName}
+                        style={[styles.inText, validaNome ? styles.inText:styles.fieldEmpty]}
+                        onChangeText={setCampoNome}
                     />
 
-                    <Text
-                        style={[styles.textHidden,
-                        !checkName ? styles.textAlert : styles.textHidden]}>Campo obrigatório!
+                    <Text style={[styles.textHidden, validaNome ? styles.textHidden:styles.textAlert]}>
+                        <Ionicons name="alert-circle-outline" size={14} color="red" /> 
+                        Campo obrigatório!
                     </Text>
+                    
                 </View>
-
+                
+                {/* CAMPO DE SENHA */}
                 <View>
                     <Text>Senha</Text>
 
                     <TextInput
-                        style={[styles.inText, !checkPassword ? styles.fieldEmpty : styles.inText]}
-                        onChangeText={setUserPassword}
+                        style={[styles.inText, validaSenha ? styles.inText:styles.fieldEmpty]}
+                        onChangeText={setCampoSenha}
                     />
 
-                    <Text
-                        style={[styles.textHidden,
-                        !checkPassword ? styles.textAlert : styles.textHidden]}>Campo obrigatório!
+                    <Text style={[styles.textHidden, validaSenha ? styles.textHidden:styles.textAlert]}>
+                        <Ionicons name="alert-circle-outline" size={14} color="red" />
+                        Campo obrigatório!
                     </Text>
+                    
                 </View>
 
+                {/* Botão ENTRAR */}
                 <TouchableOpacity 
                     style={styles.button}
                     onPress={buttonClick}
