@@ -2,6 +2,7 @@ import React, { use, useState } from "react"
 import { Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from "./loginStyle"
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { router } from "expo-router";
 
 export default function Login() {
 
@@ -31,6 +32,7 @@ export default function Login() {
         if(validaCampos()){
             const checkLogin = campoNome === user && campoSenha === senha
             setValidaLogin(checkLogin)
+            if (checkLogin){router.navigate('../Produtos')}
         } else {
             setValidaLogin(true)
         }
@@ -49,7 +51,8 @@ export default function Login() {
             <View style={styles.tela2}>
 
                 {/* alerta de login ou senha incorreto! */}
-                <Text style={[styles.textHidden, validaLogin ? styles.textHidden:styles.textAlert]}>Username ou senha iválidos!</Text>
+                <Text style={[styles.textHidden, {marginLeft: '20%'},
+                    validaLogin ? styles.textHidden:styles.textAlert]}>Username ou senha iválidos!</Text>
 
                 {/* CAMPO DE NOME */}
                 <View>
