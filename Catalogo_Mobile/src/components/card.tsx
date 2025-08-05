@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {store} from '@/src/store/index'
+import { Provider } from "react-redux";
 
-export const Card = () => {
+interface CardProps {
+    titulo: string,
+    descricao: string,
+    imagem: string,
+    preco: string,
+    onClick: () => void
+}
+
+export const Card = ({titulo, descricao, imagem, preco, onClick}: CardProps) => {
+
     return (
-        <TouchableOpacity style={styles.card}>
-            <Image style={styles.imageCard}/>
-            <Text style={styles.tituloCard}>TÍTULO</Text>
-            <Text style={styles.descricao}>DESCRIÇÃO DO PRODUTO</Text>
-            <Text style={styles.priceCard}>PRICE</Text>
-        </TouchableOpacity>
+        <Provider store={store}>
+            <TouchableOpacity style={styles.card} onPress={onClick}>
+                <Image style={styles.imageCard} source={{ uri: imagem }}/>
+                <Text style={styles.tituloCard}>{titulo}</Text>
+                <Text style={styles.descricao}>{descricao}</Text>
+                <Text style={styles.priceCard}>R$ {preco}</Text>
+            </TouchableOpacity>
+        </Provider>
+        
     )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     card: {
         width: '42%',
         height: 220,
@@ -25,7 +39,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '40%',
         borderBottomWidth: 1,
-        borderColor: 'gray'
+        borderColor: 'gray',
+        resizeMode: 'contain'
     },
     tituloCard: {
         width: '100%',
@@ -37,7 +52,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 70,
         padding: 8,
-        fontSize: 12,
+        fontSize: 10,
         color: 'gray'
     },
     priceCard: {
@@ -45,6 +60,7 @@ const styles = StyleSheet.create({
         height: '14%',
         paddingTop: 7,
         paddingLeft: 7,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 16
     }
 })

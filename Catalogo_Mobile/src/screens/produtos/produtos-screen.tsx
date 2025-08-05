@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
 import { Card } from '@/src/components/card'
+import axios from 'axios'
+import { router } from 'expo-router'
+import { useDispatch } from 'react-redux'
+import { setDetails } from '@/src/store/slices/details-man-slice'
+
+interface Produto {
+    title: string,
+    description: string,
+    price: string,
+    images: string
+}
+
 
 export const ProdutosScreen = () => {
+
+    const [dados, setDados] = useState<Produto[]>([])
+    const dispatch = useDispatch()
+
+    const getApi = async () => {
+        return await axios.get('https://dummyjson.com/products/category/mens-shirts').then((resp) => {
+            setDados(resp.data.products)
+        })
+    }
+
+    useEffect(() => {
+        getApi()
+    }, [])
+
     return (
         // Tela
         <View style={styles.tela}>
@@ -23,16 +49,24 @@ export const ProdutosScreen = () => {
 
             </View>
 
+
             {/* Lista de produtos */}
             <View style={styles.listaProdutos}>
 
-                {/* Card de produto */}
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {/* Cards de produtos */}
+                {dados.map((produto, idx) => (
+                    <Card 
+                        key={idx}
+                        titulo={produto.title}
+                        descricao={produto.description}
+                        imagem={typeof produto.images === 'string' ? produto.images : produto.images[0]}
+                        preco={produto.price}
+                        onClick={() => {
+                            dispatch(setDetails(produto))
+                            router.navigate('/(stacks)/Detalhes')
+                        }}
+                    />
+                ))}                
 
             </View>
 

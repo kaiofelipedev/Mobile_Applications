@@ -3,6 +3,8 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import { store } from '@/src/store/index';
+import { Provider } from 'react-redux'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -20,8 +22,10 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }}/>
-        <Stack.Screen name="Produtos" options={{ headerShown: true }}/>
+        <Provider store={store}>
+          <Stack.Screen name="index" options={{ headerShown: false }}/>
+          <Stack.Screen name="Produtos" options={{ headerShown: true }}/>
+        </Provider>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
