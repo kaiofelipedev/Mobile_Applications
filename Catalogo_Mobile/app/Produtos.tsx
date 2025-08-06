@@ -4,5 +4,9 @@ import { store } from '@/src/store/index'
 import { Provider } from "react-redux";
 
 export default function ListaProdutos() {
-    return <Provider store={store}><ProdutosScreen /></Provider>
+    return (
+        <Provider store={store}>
+            <ProdutosScreen />
+        </Provider>
+    )
 }

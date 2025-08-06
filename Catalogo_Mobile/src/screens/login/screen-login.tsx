@@ -32,7 +32,8 @@ export default function Login() {
         if(validaCampos()){
             const checkLogin = campoNome === user && campoSenha === senha
             setValidaLogin(checkLogin)
-            if (checkLogin){router.navigate('../Produtos')}
+            // if (checkLogin){router.navigate('../Produtos')}
+            if (checkLogin){router.navigate('/Produtos')}
         } else {
             setValidaLogin(true)
         }

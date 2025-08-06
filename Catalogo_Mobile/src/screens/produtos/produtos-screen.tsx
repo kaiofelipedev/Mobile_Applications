@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { styles } from './styles'
 import { Card } from '@/src/components/card'
 import axios from 'axios'
@@ -21,7 +21,19 @@ export const ProdutosScreen = () => {
     const dispatch = useDispatch()
 
     const getApi = async () => {
+        return await axios.get('https://dummyjson.com/products').then((resp) => {
+            setDados(resp.data.products)
+        })
+    }
+
+    const getApiMasc = async () => {
         return await axios.get('https://dummyjson.com/products/category/mens-shirts').then((resp) => {
+            setDados(resp.data.products)
+        })
+    }
+
+    const getApiFem = async () => {
+        return await axios.get('https://dummyjson.com/products/category/womens-dresses').then((resp) => {
             setDados(resp.data.products)
         })
     }
@@ -32,18 +44,18 @@ export const ProdutosScreen = () => {
 
     return (
         // Tela
-        <View style={styles.tela}>
+        <ScrollView style={styles.tela}>
 
             {/* Container de botos das abas */}
             <View style={styles.containerBottons}>
 
                 {/* Botão masculino */}
-                <TouchableOpacity style={styles.buttons}>
+                <TouchableOpacity style={styles.buttons} onPress={getApiMasc}>
                     <Text>Produtos Masculinos</Text>
                 </TouchableOpacity>
 
                 {/* Botão feminino */}
-                <TouchableOpacity style={styles.buttons}>
+                <TouchableOpacity style={styles.buttons} onPress={getApiFem}>
                     <Text>Produtos Femininos</Text>
                 </TouchableOpacity>
 
@@ -70,6 +82,6 @@ export const ProdutosScreen = () => {
 
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
